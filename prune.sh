@@ -46,7 +46,7 @@ for platform in ${PLATFORMS}; do
 	    if [[ "${specs_in_latest_version}" =~ "${spec}" ]];then
 		(
 	            set -x
-		    anaconda remove --force ${CHANNEL}/${PKG}/${version}/${PLATFORMS}/${PKG}-${version}-${build}.tar.bz2
+		    anaconda remove --force ${CHANNEL}/${PKG}/${version}/${platform}/${PKG}-${version}-${spec}.tar.bz2
 		)
 	    fi
         done
