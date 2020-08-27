@@ -18,7 +18,7 @@ grab_latest_version() {
         xargs
 }
 
-grab_spec_for_version() {
+grab_specs_for_version() {
     conda search -c "${CHANNEL}" --platform "${platform}" "${PKG}" 2>/dev/null | \
         grep "${CHANNEL}" | \
         grep "$1" | \
@@ -37,10 +37,10 @@ PLATFORMS=${PLATFORMS:-noarch osx-64 linux-64 win-64}
 
 for platform in ${PLATFORMS}; do
     latest_version="$(grab_latest_version || true)"
-    specs_in_latest_version="$(grab_spec_for_version "${latest_version}" || true)"
+    specs_in_latest_version="$(grab_specs_for_version "${latest_version}" || true)"
     versions_to_prune="$(grab_version || true)"
     for version in ${versions_to_prune}; do
-        specs_in_prune_version="$(grab_spec_for_version "${version}" || true)"
+        specs_in_prune_version="$(grab_specs_for_version "${version}" || true)"
         for spec in ${specs_in_prune_version}; do
 	    # If this spec is included in specs_in_latest_version, then remove it.
 	    if [[ "${specs_in_latest_version}" =~ "${spec}" ]];then
