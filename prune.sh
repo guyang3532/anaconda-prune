@@ -37,17 +37,17 @@ PLATFORMS=${PLATFORMS:-noarch osx-64 linux-64 win-64}
 
 for platform in ${PLATFORMS}; do
     latest_version="$(grab_latest_version || true)"
-	latest_builds="$(grab_builds "${latest_version}" || true)"
+    latest_builds="$(grab_builds "${latest_version}" || true)"
     versions_to_prune="$(grab_version || true)"
-	for version in ${versions_to_prune}; do
-		builds="$(grab_builds "${version}" || true)"
-		for build in ${builds}; do
-		    if [[ "${latest_builds}" =~ "${build}" ]];then
-			    (
-			        set -x
-			        anaconda remove --force ${CHANNEL}/${PKG}/${version}/${PLATFORMS}/${PKG}-${version}-${build}.tar.bz2
-				)
-			fi
+    for version in ${versions_to_prune}; do
+        builds="$(grab_builds "${version}" || true)"
+        for build in ${builds}; do
+	    if [[ "${latest_builds}" =~ "${build}" ]];then
+		(
+	            set -x
+		    anaconda remove --force ${CHANNEL}/${PKG}/${version}/${PLATFORMS}/${PKG}-${version}-${build}.tar.bz2
+		)
+	    fi
         done
     done
 done
