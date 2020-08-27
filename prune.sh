@@ -21,9 +21,9 @@ grab_latest_version() {
 grab_spec_for_version() {
     conda search -c "${CHANNEL}" --platform "${platform}" "${PKG}" 2>/dev/null | \
         grep "${CHANNEL}" | \
-	grep "$1" | \
+        grep "$1" | \
         awk -F '  *' '{print $3}' | \
-	uniq | \
+        uniq | \
         xargs
 }
 
