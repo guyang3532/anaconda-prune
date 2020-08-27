@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-grab_prun_version() {
+grab_prune_version() {
     conda search -c "${CHANNEL}" --platform "${platform}" "${PKG}" 2>/dev/null | \
         grep "${CHANNEL}" | \
         awk -F '  *' '{print $2}' | \
