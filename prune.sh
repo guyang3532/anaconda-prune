@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-grab_version() {
+grab_prun_version() {
     conda search -c "${CHANNEL}" --platform "${platform}" "${PKG}" 2>/dev/null | \
         grep "${CHANNEL}" | \
         awk -F '  *' '{print $2}' | \
@@ -38,7 +38,7 @@ PLATFORMS=${PLATFORMS:-noarch osx-64 linux-64 win-64}
 for platform in ${PLATFORMS}; do
     latest_version="$(grab_latest_version || true)"
     specs_in_latest_version="$(grab_specs_for_version "${latest_version}" || true)"
-    versions_to_prune="$(grab_version || true)"
+    versions_to_prune="$(grab_prune_version || true)"
     for version in ${versions_to_prune}; do
         specs_in_prune_version="$(grab_specs_for_version "${version}" || true)"
         for spec in ${specs_in_prune_version}; do
